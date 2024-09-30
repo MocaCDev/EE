@@ -39,6 +39,17 @@ d.addEventListener("DOMContentLoaded", function(event) {
         }, 1500);
     }
 
+    if(d.querySelector('.headroom2'))
+    {
+        var headroom = new Headroom(document.querySelector("#navbar-main2"), {
+            offset: 100,
+            tolerance: {
+                up: 0,
+                down: 0
+            },
+        });
+        headroom.init();
+    }
     if (d.querySelector('.headroom')) {
         var headroom = new Headroom(document.querySelector("#navbar-main"), {
             offset: 0,

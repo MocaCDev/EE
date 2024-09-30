@@ -1,259 +1,3 @@
-const all_clasic_links = [
-    'navbar_image',
-    'classic_home',
-    'classic_about',
-    'classic_support',
-    'classic_register_state_or_college',
-    'classic_shop'
-];
-
-/* For `/account`. */
-let unhide_horizontal_sections = () => {
-    /* We will assume here that `window.innerWidth` is >= 780. */
-    if(!document.getElementById('vertical_facing_general_section').hidden)
-        document.getElementById('vertical_facing_general_section').hidden = true;
-
-    if(!document.getElementById('vertical_facing_account_section').hidden)
-        document.getElementById('vertical_facing_account_section').hidden = true;
-
-    if(document.getElementById('horizontal_facing_general_section').hidden)
-        document.getElementById('horizontal_facing_general_section').hidden = false;
-
-    if(document.getElementById('horizontal_facing_account_section').hidden)
-        document.getElementById('horizontal_facing_account_section').hidden = false;
-}
-
-let hide_horizontal_sections = () => {
-    document.getElementById('horizontal_facing_general_section').hidden = true;
-    document.getElementById('horizontal_facing_account_section').hidden = true;
-
-    /* Make vertical-facing section visible (for mobile, presumably). */
-    document.getElementById('vertical_facing_general_section').hidden = false;
-    document.getElementById('vertical_facing_account_section').hidden = false;
-}
-
-window.addEventListener('load', () => {
-    if(window.location.href.includes('account'))
-        {
-            /* Check to see if we are on one of the pages listed in the sections.
-             * If we are, do not do anything with the horizontal sections.
-             * */
-            if(document.getElementById('pages').hidden)
-            {
-                if(window.innerWidth <= 780)
-                    {
-                        hide_horizontal_sections();
-
-                        return;
-                    }
-            }
-
-            /* Instead, see if we need large screen back buttons/titles or small screen back
-             * buttons/titles.
-             * */
-            /*if(window.innerWidth <= 780)
-            {
-                document.getElementById('large_screen_back').hidden = true;
-                document.getElementById('large_screen_title').hidden = true;
-
-                document.getElementById('small_screen_back').hidden = false;
-                document.getElementById('small_screen_title').hidden = false;
-            }
-            else
-            {
-                document.getElementById('small_screen_back').hidden = true;
-                document.getElementById('small_screen_title').hidden = true;
-                document.getElementById('large_screen_back').hidden = true;
-                document.getElementById('large_screen_title').hidden = true;
-            }*/
-            
-            /* When the window gets loaded we only have to check if the windows width is
-             * <=780, else the horizontal facing general and account section will be visible.
-             * */
-        }
-});
-
-window.addEventListener('resize', () => {
-    if(window.location.href.includes('account'))
-        { 
-            if(document.getElementById('pages').hidden)
-            {
-                if(window.innerWidth <= 780)
-                    {
-                        hide_horizontal_sections();
-
-                        return;
-                    }
-
-                /* We will assume here that `window.innerWidth` is >= 780. */
-                unhide_horizontal_sections();
-                return;
-            }
-
-            if(window.innerWidth <= 992)
-            {
-                document.getElementById('large_screen_back').hidden = true;
-                document.getElementById('large_screen_title').hidden = true;
-
-                document.getElementById('small_screen_back').hidden = false;
-                document.getElementById('small_screen_title').hidden = false;
-                //document.getElementById('pages_back_button').classList.add('me-sm-0');
-            }
-            else
-            {
-                document.getElementById('large_screen_back').hidden = false;
-                document.getElementById('large_screen_title').hidden = false;
-                
-                document.getElementById('small_screen_back').hidden = true;
-                document.getElementById('small_screen_title').hidden = true;
-            }
-        }
-});
-
-/* For `/signup`. */
-window.addEventListener('load', () => {
-    if(window.location.href.includes('signup'))
-        document.getElementById('loading_bar_gif').style = 'display: none';
-})
-
-function show_loading_bar()
-{
-    document.getElementById('sign_up_content').hidden = true;
-
-    document.getElementById('loading_bar').hidden = false;
-    document.getElementById('loading_bar_gif').style = 'display: absolute;width:120px;height:120px'
-}
-
-function make_something_show(button_clicked)
-{
-
-    if(window.innerWidth <= 992)
-        {
-            document.getElementById('large_screen_back').hidden = true;
-            document.getElementById('large_screen_title').hidden = true;
-
-            document.getElementById('small_screen_back').hidden = false;
-            document.getElementById('small_screen_title').hidden = false;
-            //document.getElementById('pages_back_button').classList.add('me-sm-0');
-        }
-    else
-        {
-            document.getElementById('large_screen_back').hidden = false;
-            document.getElementById('large_screen_title').hidden = false;
-
-            document.getElementById('small_screen_back').hidden = true;
-            document.getElementById('small_screen_title').hidden = true;
-        }
-
-    switch(button_clicked)
-    {
-        case 'switch_colleges':
-            {
-                document.getElementById('pages').hidden = false;
-                document.getElementById('large_screen_title_text').innerText = "Switch Colleges";
-                document.getElementById('small_screen_title_text').innerText = "Switch Colleges";
-
-                if(!document.getElementById('horizontal_facing_general_section').hidden)
-                {
-                    document.getElementById('horizontal_facing_general_section').hidden = true;
-                    document.getElementById('horizontal_facing_account_section').hidden = true;
-                } else
-                {
-                    document.getElementById('small_screen_title_text').innerText = "Switch Colleges";
-                    document.getElementById('vertical_facing_general_section').hidden = true;
-                    document.getElementById('vertical_facing_account_section').hidden = true;
-                }
-
-                document.getElementById('switch_colleges_section').hidden = false;
-                document.getElementById('welcome_message').hidden = true;
-            }
-    }
-}
-
-function go_back(section)
-{
-    document.getElementById('pages').hidden = true;
-
-    switch(section)
-    {
-        case 'switch_colleges_section':
-            {
-                document.getElementById(section).hidden = true;
-
-                if(window.innerWidth <= 780)
-                {
-                    document.getElementById('small_screen_title_text').innerText = '';
-
-                    document.getElementById('horizontal_facing_general_section').hidden = true;
-                    document.getElementById('horizontal_facing_account_section').hidden = true;
-                    document.getElementById('vertical_facing_general_section').hidden = false;
-                    document.getElementById('vertical_facing_account_section').hidden = false;
-                } else
-                {
-                    document.getElementById('large_screen_title_text').innerText = '';
-
-                    document.getElementById('horizontal_facing_general_section').hidden = false;
-                    document.getElementById('horizontal_facing_account_section').hidden = false;
-                    document.getElementById('vertical_facing_general_section').hidden = true;
-                    document.getElementById('vertical_facing_account_section').hidden = true;
-                }
-                document.getElementById('welcome_message').hidden = false;
-            }
-    }
-}
-
-let show_extra_in_popup_menu = () => {
-    if(window.innerWidth <= 990)
-    {
-        for(let i = 0; i < all_clasic_links.length; i++)
-            {
-                if(document.getElementById(all_clasic_links[i]) === null)
-                    continue;
-
-                document.getElementById(all_clasic_links[i]).classList.add('d-none');
-            }
-        document.getElementById('IDEK').classList.remove('d-none');
-    }
-    else
-    {
-        for(let i = 0; i < all_clasic_links.length; i++)
-            {
-                if(document.getElementById(all_clasic_links[i]) === null)
-                    continue;
-
-                document.getElementById(all_clasic_links[i]).classList.remove('d-none');
-            }
-        document.getElementById('IDEK').classList.add('d-none');
-    }
-};
-
-show_extra_in_popup_menu();
-
-window.addEventListener('resize', () => {
-    if(window.innerWidth <= 990)
-        {
-            for(let i = 0; i < all_clasic_links.length; i++)
-                {
-                    if(document.getElementById(all_clasic_links[i]) === null)
-                        continue;
-    
-                    document.getElementById(all_clasic_links[i]).classList.add('d-none');
-                }
-            document.getElementById('IDEK').classList.remove('d-none');
-        }
-        else
-        {
-            for(let i = 0; i < all_clasic_links.length; i++)
-                {
-                    if(document.getElementById(all_clasic_links[i]) === null)
-                        continue;
-    
-                    document.getElementById(all_clasic_links[i]).classList.remove('d-none');
-                }
-            document.getElementById('IDEK').classList.add('d-none');
-        }
-});
-
 listen_for_click = (s, plan_id, plan, confirm_message) =>
     {
         document.querySelector(plan_id).addEventListener("click", () => {
@@ -277,6 +21,18 @@ listen_for_click = (s, plan_id, plan, confirm_message) =>
                 });
         });
     }
+
+window.addEventListener('resize', () => {
+    if(window.innerWidth <= 500)
+    {
+        document.getElementById('navbar-logo').classList.remove('navbar-logo-large');
+        document.getElementById('navbar-logo').classList.add('navbar-logo-small');
+        return;
+    }
+
+    document.getElementById('navbar-logo').classList.remove('navbar-logo-small');
+    document.getElementById('navbar-logo').classList.add('navbar-logo-large');
+});
 
 /*fetch('/config_stripe')
     .then((result) => { return result.json(); })
@@ -339,8 +95,12 @@ function ask_user_to_make_account()
                                 alert("You are on mobile. Visit your app store to download the EZNotes App.");
                                 return;
                             }
-                        document.getElementById('light').style.display='block';
-                        document.getElementById('fade').style.display='block';
+                        
+                        /* The two divs are hidden by default. */
+                        [].slice.call(document.querySelectorAll('[data-name*="os_picker"]')).map((div) => {
+                            div.style = 'display: block;';
+                            div.hidden = false;
+                        });
                         return;
                     }
 
@@ -361,11 +121,10 @@ function ask_user_to_make_account()
                     return;
                 }
 
-            document.getElementById('light').hidden = false;
-            document.getElementById('fade').hidden = false;
-            
-            document.getElementById('light').style.display='block';
-            document.getElementById('fade').style.display='block';
+            [].slice.call(document.querySelectorAll('[data-name*="os_picker"]')).map((div) => {
+                div.style = 'display: block;';
+                div.hidden = false;
+            });
         })
 }
 
@@ -394,29 +153,38 @@ function download_software(for_OS)
 
 function close_OS_picker_window()
 {
-    document.getElementById('light').style.display='none';
-    document.getElementById('fade').style.display='none';
-
-    document.getElementById('light').hidden = true;
-    document.getElementById('fade').hidden = true;
+    [].slice.call(document.querySelectorAll('[data-name*="os_picker"]')).map((div) => {
+        div.style = 'display: none;';
+        div.hidden = true;
+    });
 }
 
 /* Click detection for when `light` div is visible. */
 window.addEventListener('click', (e) => {
-    if(document.getElementById('light').style.display !== 'none')
-        if(!document.getElementById('OS_options').contains(e.target))
-            close_OS_picker_window();
-})
+    /* Checks implemented as such just in case the ID of the div changes. */
+    [].slice.call(document.querySelectorAll('[data-name*="os_picker"]')).map((div) => {
+        /* The first `div` will be the one we need to check for mouse clicks.
+         * */
+        if(div.style.display !== 'none')
+            if(!document.getElementById('OS_options').contains(e.target))
+                close_OS_picker_window();
+        
+        return;
+    });
+});
 
+/* TODO: I do not believe the below functions are needed. Keeping just in case we reinstate the survey.
+ *       Should we remove eventually?
+ * */
 function count_characters(val) {
     var len = val.value.length;
     if (len >= 500) {
-      val.value = val.value.substring(0, 500);
-      document.getElementById('characterCount').innerHTML = '<p>0 Characters Remaining</p>';
+        val.value = val.value.substring(0, 500);
+        document.getElementById('characterCount').innerHTML = '<p>0 Characters Remaining</p>';
     } else {
         document.getElementById('characterCount').innerHTML = '<p>' + (500 - len).toString() + ' Characters Remaining</p>';
     }
-  };
+};
 
 function show_animation()
 {
@@ -454,8 +222,270 @@ function window_scroll_operation_on(id)
     }
 }
 
+/* "scroll" to the next section of the current page.
+ * A section is denoted by its tag ID.
+ * All header sections take up the entire height/width of the screen, whereas
+ * the rest of the webpage does not.
+ * */
+let index = 0;
+$(() => {
+    $('#show-page').on('click', (e) => {
+        e.preventDefault();
+
+        [].slice.call(document.querySelectorAll('[data-name*="overview"]')).map((sec) => {
+            sec.style = 'display: block;'
+        });
+
+        AOS.init({duration: 1150});
+
+        window.location.href = (!window.location.href.includes('#')
+            ? window.location.href
+            : window.location.href.split('#').reverse().pop())
+            + '#'
+            + document.querySelectorAll('[data-name*="overview"]')[0].id;
+    });
+});
+
+window.onscroll = () => {
+    if(document.documentElement.scrollTop === 0 && !window.mobileCheck())
+    {
+        [].slice.call(document.querySelectorAll('[data-name*="overview"]')).map((sec) => {
+            sec.style = 'display:none;';
+        });
+
+        if(window.location.href.includes('/#'))
+            window.location.href = window.location.href.split('/#').reverse().pop() + '/#intro';
+
+        return;
+    }
+};
+
+/*var firstsec = document.getElementById('intro');
+var secondsec = document.getElementById('brief_about');
+var lastScrollTop2 = 0;
+
+window.onscroll = function(){
+   var st = window.pageYOffset || document.documentElement.scrollTop; 
+   if (st > lastScrollTop2){
+        let secondsec_xy = secondsec.getBoundingClientRect();
+        window.scrollTo({top: secondsec_xy.top, behavior: 'smooth'});
+      //secondsec.scrollIntoView({block: 'end',  behavior: 'smooth'});
+   } else {
+      firstsec.scrollIntoView({block: 'end',  behavior: 'smooth'});
+   }
+   lastScrollTop2 = st <= 0 ? 0 : st; 
+}*/
+
+let initted = false;
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+//let intro_name = 'intro';
+
+var ua = navigator.userAgent.toLowerCase(); 
+var isSafari = false;
+try {
+  isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+}
+catch(err) {}
+isSafari = (isSafari || ((ua.indexOf('safari') != -1)&& (!(ua.indexOf('chrome')!= -1) && (ua.indexOf('version/')!= -1))));
+
+window.mobileCheck = function() {
+    let check = false;
+    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+    return check;
+};
+
+window.addEventListener('resize', () => {
+    if(window.mobileCheck())
+    {
+        if(!document.getElementById('quick-overview').classList.contains('quick-overview-for-mobile'))
+            document.getElementById('quick-overview').classList.add('quick-overview-for-mobile');
+        return;
+    }
+
+    if(window.innerHeight < 1160) document.getElementById('intro-content').style = 'margin-top: 20px';
+    else document.getElementById('intro-content').style = 'margin-top: 350px';
+
+    if(isSafari)
+    {
+        document.getElementById('learn-more').hidden = true;
+        document.getElementById('intro').classList.remove(intro_name);
+        document.getElementById('intro').classList.add('intro-special-3');
+        intro_name = 'intro-special-3';
+        return;
+    }
+
+    if(window.innerWidth <= 950)
+    {
+        document.getElementById('quick-overview').classList.remove('quick-overview-normal');
+        document.getElementById('quick-overview').classList.add('quick-overview-for-mobile');
+        document.getElementById('intro').classList.remove(intro_name);
+
+        if(window.innerWidth <= 770)
+        {
+            document.getElementById('intro').classList.add('intro-special-mobile');
+            intro_name = 'intro-special-mobile';
+            return;
+        }
+
+        document.getElementById('intro').classList.add('intro-special');
+        intro_name = 'intro-special';
+        return;
+    } else {
+        document.getElementById('quick-overview').classList.remove('quick-overview-for-mobile');
+        document.getElementById('quick-overview').classList.add('quick-overview-normal');
+        document.getElementById('intro').classList.remove(intro_name);
+        document.getElementById('intro').classList.add('intro');
+        intro_name = 'intro';
+    }
+
+    if(window.innerHeight <= 500)
+    {
+        document.getElementById('intro').hidden = true;
+        document.getElementById('too-small-height').hidden = false;
+        return;
+    } else {
+        document.getElementById('intro').hidden = false;
+        document.getElementById('too-small-height').hidden = true;
+    }
+
+    if(window.innerHeight >= 915)
+    {
+        if(window.innerHeight <= 1013) document.getElementById('learn-more').hidden = true;
+        else document.getElementById('learn-more').hidden = false;
+        document.getElementById('intro').classList.remove(intro_name);
+        document.getElementById('intro').classList.add('intro');
+        
+        intro_name = 'intro';
+    } else if(window.innerHeight < 915)
+    {
+        document.getElementById('learn-more').hidden = true;
+
+        if(window.innerHeight < 915 && window.innerHeight > 745)
+        {
+            document.getElementById('intro').classList.remove(intro_name);
+
+            if(intro_name !== "intro")
+            {
+                document.getElementById('intro').classList.remove(intro_name);
+                document.getElementById('intro').classList.add('intro');
+                intro_name = 'intro';
+            }
+            /*document.getElementById('intro').classList.add('intro-special');
+            intro_name = 'intro-special';*/
+        } else {
+            if(window.innerHeight <= 745 && window.innerHeight > 630)
+            {
+                document.getElementById('intro').classList.remove(intro_name);
+                document.getElementById('intro').classList.add('intro-special-2');
+                intro_name = 'intro-special-2';
+            } else if(window.innerHeight <= 630 && window.innerHeight > 550)
+            {
+                document.getElementById('intro').classList.remove(intro_name);
+                document.getElementById('intro').classList.add('intro-special-3');
+                intro_name = 'intro-special-3';
+            } else
+            {
+                document.getElementById('intro').classList.remove(intro_name);
+                document.getElementById('intro').classList.add('intro-special-4');
+                intro_name = 'intro-special-4'
+            }
+        }
+    }
+});
+
+function show_basic_plan() {
+    document.getElementById('basic-plan-details').style = 'display:block';
+}
+
+/* The animation will not go away until the window is completely loaded.
+ * Once the window has loaded, get rid of the loading animatin and initialize the
+ * AOS animations.
+ * */
+intro_name = 'intro';
+window.onload = () => {
+    /* See `header.js` for code on the below method. */
+    //window.adjustOnLoad();
+
+    if(window.mobileCheck())
+    {
+        document.getElementById('coming-soon-section').style = 'margin-top: 300px';
+        document.getElementById('basic-plan-features').style = 'margin-top: 15px';
+        document.getElementById('basic-plan-features-list').style = 'margin-top:15px;margin-bottom:15px;list-style:none;';
+        document.getElementById('what-we-offer').style = 'margin-top: 25px';
+        /* The "download" button will show in the menu. */
+        document.getElementById('eznotesInstaller').hidden = true;
+
+        document.getElementById('intro').classList.remove(intro_name);
+        document.getElementById('intro').classList.add('intro-special-3');
+        intro_name = 'intro-special-3';
+
+        document.getElementById('quick-overview').classList.remove('quick-overview-normal');
+        document.getElementById('quick-overview').classList.add('quick-overview-for-mobile');
+        document.getElementById('intro-content').style = 'margin-top: 20px';
+
+        document.getElementById('quick-overview').style = 'display:block';
+    }
+    else {
+        document.getElementById('b2').hidden = false;
+        document.getElementById('intro-content').style = 'margin-top: 220px';
+    }
+
+    /* We want to know if the user was redirected back to the homepage.
+     * The code within the if statement is to run only upon the webpage reloading,
+     * or the user just getting to the webpage.
+     * If there are any sort of internal redirects made by the server itself, we don't
+     * want the `setTimeout` inside the if statement to run.
+     * */
+    if(getCookie('RED') === "")
+    {
+        setTimeout(() =>
+        {
+            /* Hide everything pertaining to the animation (loading screen). */
+            [].slice.call(document.querySelectorAll('[data-name*="anim"]')).map((tag) => { tag.hidden = true; });
+
+            /* Initialize AOS animations. */
+            AOS.init({duration: 1150});
+
+            /* Wait 5 ms after animations are done to update the background image border radius. */
+            setTimeout(() => {
+                document.getElementById('intro').classList.remove('main-page-header-bg2-with-radius');
+                document.getElementById('intro').classList.add('main-page-header-bg2');
+            }, 1155);
+        }, 3800);
+        
+        return;
+    }
+
+    /* If the user was redirected, just initialize `AOS`. */
+    AOS.init({duration: 1150});
+
+    setTimeout(() => {
+        document.getElementById('intro').classList.remove('main-page-header-bg2-with-radius');
+        document.getElementById('intro').classList.add('main-page-header-bg2');
+    }, 1151);
+}
+
 /* We want the header to blend in with the rest of the header so long as the user is at the top of the page.
  * If the user is not at the top, we want the navigation bar to stand out.
+ *
+ * TODO: Are the below `if` statements needed anymore? I do not believe `signup_header` nor `login_header` even
+ *       exist anymore.
  * */
-if(window.location.href.includes('/signup')) { window_scroll_operation_on('signup_header'); }
-if(window.location.href.includes('/login')) { window_scroll_operation_on('login_header'); }
+//if(window.location.href.includes('/signup')) { window_scroll_operation_on('signup_header'); }
+//if(window.location.href.includes('/login')) { window_scroll_operation_on('login_header'); }
